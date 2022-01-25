@@ -1,0 +1,801 @@
+ 
+---
+title: "Bases de R "
+tutorial:
+  id: "cours-2"
+  version: 0.0
+output: 
+  learnr::tutorial:
+    language:
+      fr:
+        button:
+          nexttopic: Suivant
+          previoustopic: Précédent
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(learnr)
+# library(tidyverse)
+checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
+  list(message = check_code, correct = TRUE, location = "append")
+}
+tutorial_options(exercise.timelimit = 60, exercise.checker = checker)
+```
+
+
+
+
+# Exercices
+
+## Objectifs
+
+Cette série d'exercices est une adaptation libre de
+contenus tirés du site suivant (entre autres!):
+
+"https://github.com/dlab-berkeley/R-Fundamentals"
+
+Elle vous aidera à cosolider vos connaissances sur les notions de bases suivantes
+
+* Fonctions
+* Objets dans R, les types de variables
+* Manipulation de vecteurs, data frames, listes etc.   
+
+
+
+##  Fonctions
+
+###  Exécution d'une fonction
+- Utiliser la fonction  `sqrt()` dans le bloc de code 'chunk' suivant pour calculer la racine carrée de 96
+
+```{r fonctions-1, exercise = TRUE}
+
+```
+
+```{r fonctions-1-solution}
+sqrt(961)
+```
+
+##
+
+### Code d'une fonction
+
+Utiliser le bloc de code  suivant pour afficher le code que la fonction  `sqrt()` exécute
+
+```{r fonctions-2, exercise = TRUE}
+
+```
+
+```{r fonctions-2-solution}
+sqrt
+```
+
+```{r functions-2-check,eval=FALSE}
+"L'exécution de sqrt déclenche immédiatement un algorithme de bas niveau optimisé pour les performances, donc il n'y a pas beaucoup de code à voir"
+```
+
+##
+
+### Fonction `lm()`
+
+Comparer le code dans `sqrt()` à celui d'une autre fonction de R, par exemple `lm()` (lm signifie *Linear Model*)
+
+```{r fonctions-3, exercise = TRUE}
+
+```
+
+```{r fonctions-3-solution}
+lm
+```
+
+##
+
+### Pages d'aide
+
+Il semble que la fonction `lm()` fasse appel à beaucoup de code. Que fait-elle préciséement? Pour le savoir, exécuter la commande requise
+pour afficher la page d'aide de la fonction `lm()` 
+
+```{r fonctions-4, exercise = TRUE}
+
+```
+
+```{r fonctions-4-solution}
+?lm
+```
+
+```{r fonctions-4-check}
+"Bien! `lm()` est une fonctionde R qui ajuste des modèles linéaires de base"
+```
+
+## Commentaires
+
+Essayez d'exécuter la commande suivante, qu'affiche-t-elle?
+
+```{r functions-5, exercise = TRUE}
+# sqrt(961)
+```
+
+```{r functions-5-solution}
+"Rien! tout ce qui vient après le symbole '#'  est un commentaire  qui sera ignoré par R"
+```
+
+##
+
+- On a demandé à 4 ménages le revenu des deux conjoints, et le nombre de personnes du ménage :
+
+```{r eval=FALSE}
+conjoint1 <- c(1200, 1180, 1750, 2100)
+conjoint2 <- c(1450, 1870, 1690, 0)
+nb_personnes <- c(4, 2, 3, 2)
+```
+
+- Calculer le revenu total de chaque ménage, puis diviser par le nombre de personnes pour obtenir le revenu par personne de chaque ménage.
+
+
+```{r vectors-201, exercise = TRUE}
+
+```
+
+
+```{r vectors-201-solution}
+revenu_total <- conjoint1 + conjoint2
+revenu_total / nb_personnes
+```
+
+
+##
+Calculer le revenu minimum et maximum parmi les revenus du premier conjoint. 
+
+```{r echo=F}
+conjoint1 <- c(1200, 1180, 1750, 2100)
+conjoint1
+```
+
+```{r vectors-202, exercise = TRUE}
+
+```
+
+```{r vectors-202-solution}
+range(conjoint1)
+```
+
+##
+
+- Recommencer avec les revenus suivants, parmi lesquels l'un des enquetés n'a pas voulu répondre :
+
+```{r eval=FALSE}
+conjoint1 <- c(1200, 1180, 1750, NA)
+```
+
+
+```{r vectors-203, exercise = TRUE}
+
+```
+
+
+```{r vectors-203-solution}
+range(conjoint1, na.rm = TRUE)
+```
+
+
+##
+
+- Les deux vecteurs suivants représentent les précipitations (en mm) et la température (en °C) moyennes pour une ville donnée, pour chaque mois de l'année, entre 1981 et 2010 :
+
+```{r}
+temperature <- c(3.4, 4.8, 8.4, 11.4, 15.8, 19.4, 22.2, 
+                 21.6, 17.6, 13.4, 7.6, 4.4)
+precipitations <- c(47.2, 44.1, 50.4, 74.9, 90.8,75.6, 
+                    63.7, 62, 87.5, 98.6, 81.9, 55.2)
+```
+
+ - Calculer la température moyenne sur l'année.
+
+
+```{r exo10, exercise = TRUE}
+
+```
+
+```{r exo10-solution}
+mean(temperature)
+```
+
+
+##
+
+ - Calculer la quantité totale de précipitations sur l'année.
+
+
+
+```{r exo12, exercise = TRUE}
+
+```
+
+```{r exo12-solution}
+sum(precipitations)
+```
+
+
+
+##
+
+- À quoi correspond et comment peut-on interpréter le résultat de la fonction suivante ? Vous pouvez vous aider de la page d'aide de la fonction si nécessaire.
+
+```{r}
+cumsum(precipitations)
+```
+
+```{r, exo123, exercise = TRUE}
+
+```
+
+```{r exo123-solution}
+"`cumsum(precipitations)` correspond à la somme 
+cumulée des précipitations sur l'année. 
+Par exemple, la 6e valeur du vecteur résultat correspond 
+au total de précipitations de janvier à juin."
+```
+
+##
+
+- Même question pour :
+
+```{r}
+diff(temperature)
+```
+
+```{r, exo124, exercise = TRUE}
+
+```
+
+```{r exo124-solution}
+"`diff(temperature)` correspond à la différence de température 
+d'un mois sur l'autre. Par exemple, la 2e valeur 
+de ce vecteur correspond à l'écart de température 
+entre le mois de février et le mois de janvier.
+"
+```
+
+
+
+## Arguments
+
+### args()
+
+`rnorm()`  est une fonction qui génère des variables aléatoires à partir d'une distribution normale. Trouvez les arguments de `rnorm ()`.
+
+```{r arguments-1, exercise = TRUE}
+
+```
+
+```{r arguments-1-solution}
+args(rnorm)
+```
+
+```{r arguments-1-check}
+"`n` est le nombre d'observations normales à générer, `mean` et `sd` sont la moyenne et l'écart-type de la Normale à partir de laquelle on génère ces observations aléatoires." 
+```
+
+##
+### Arguments Optionnels
+
+```{r arguments-2, echo = FALSE}
+question("Quels sont les arguments de rnom qui sont optionnels?",
+         answer("n"),
+         answer("mean", correct = TRUE),
+         answer("sd", correct = TRUE),
+         allow_retry = TRUE,
+         correct = "`n` n'est pas un argument optionnel car il n'a pas de valeur par défaut.")
+```
+
+## 
+
+Utilisez`rnorm()` pour générer 100 observations normales de moyenne 100 et d'écart-type 15.
+
+```{r arguments-3, exercise = TRUE}
+
+```
+
+```{r arguments-3-solution}
+rnorm(100, mean = 100, sd = 50)
+```
+
+## Fonction rnorm() 
+
+Le code suivant contient une erreur, laquelle? corriger l'erreur et exécuter le code
+
+```{r arguments-4, exercise = TRUE}
+rnorm(100, mu = 100, sd = 50)
+```
+
+```{r arguments-4-solution}
+rnorm(100, mean = 100, sd = 50)
+```
+
+## Objets
+
+
+### Noms d'Objets 
+
+Vous pouvez donner n'importe quel nom à un objet pourvu que ce dernier ne commence pas par un caractère spécial tel que 
+`+`, `-`, `*`, `/`, `^`, `!`, `@`, or `&`. 
+
+```{r objects-1, echo = FALSE}
+question("parmi les noms suivants, identifiez ceux qui ne peuvent pas être des noms d'objets",
+  answer("today", correct = TRUE),
+  answer("1st"),
+  answer("+1"),
+  answer("vars", correct = TRUE),
+  answer("\\^_^"),
+  answer("foo", correct = TRUE),
+  allow_retry = TRUE,
+  correct = "N'oubliez pas que le nom que vous donnez à un objet devrait refléter le contenu de cet objet."
+)
+```
+
+##
+
+### Utilisation des objets
+
+- Dans le code suivant, sauvegardez le résultat de `rnorm(100, mean = 100, sd = 15)` dans un ojet `data`. 
+
+- Ensuite, appliquez la fonction `hist()` à l'objet `data` pour tracer l'histogramme des 100 observations générées précédemment
+
+
+```{r objects-2, exercise = TRUE}
+
+```
+
+```{r objects-2-solution}
+data <- rnorm(100, mean = 100, sd = 15)
+hist(data)
+```
+
+##
+
+### Copie d'un objet
+
+A votre avis, que se passera-t-il si on affecte l'objet`data` à un nouvel objet `copie`? exécuter le code suivant et comparer le contenu des deux objets  `data` et `copie`.
+
+```{r objects-3, exercise = TRUE}
+data <- rnorm(100, mean = 100, sd = 15)
+copie <- data
+```
+
+```{r objects-3-solution}
+data <- rnorm(100, mean = 100, sd = 15)
+copie <- data
+data
+copie
+```
+
+```{r objects-3-check}
+"R sauvegarde le contenu de 'data' dans 'copie' sans altérer 'data' pour autant. Vous pouvez créer des copies d'un objet pour faire des essais tout en préservant les données originales."
+```
+
+##
+
+### Ensembles de données
+
+Les objets offrent un moyen facile pour stocker des ensembles de données dans R. En fait, à l'ouverture de R, ce dernier pré-charge  de nombreux ensembles / jeux de données. Par exemple, examinez le contenu de `iris` pour voir un jeu  de données classique. 
+
+```{r objects-4, exercise = TRUE}
+
+```
+
+```{r objects-4-solution}
+iris
+```
+
+```{r objects-4-check}
+"Vous pouvez en apprendre davantage sur le jeu de données `iris` en examinant sa page d'aide  avec la commande `?iris`."
+```
+
+##
+### La fonction rm()
+
+
+Si vous écrasiez accidentellement un objet de R ou l'un de ses packages, vous pouvez restaurer la version d'origine de l'objet en supprimant votre version avec `rm ()`. Exécutez `rm ()` sur `iris` ci-dessous pour restaurer l'ensemble de données iris.
+
+
+```{r objects-5, exercise = TRUE}
+iris <- 1
+iris
+```
+
+```{r objects-5-solution}
+iris <- 1
+iris
+rm(iris)
+iris
+```
+
+```{r objects-5-check}
+"Malheureusement, `rm ()` ne peut pas vous aider si vous écrasez l'un de vos propres objets."
+```
+
+## Vecteurs
+
+### Création d'un vecteur  
+
+- Créer un vecteur d'entiers qui contient les valeurs de 1 à 10
+
+```{r vectors-1, exercise = TRUE}
+
+```
+
+```{r vectors-1-solution}
+c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+
+- Si votre vecteur contient une séquence d'entiers contigus, vous pouvez le créer avec le raccourci `:`. Exécutez «1:10» dans le bloc de code ci-dessous. Qu'est ce que vous obtenez? Quel serait le résultat de «25:10» ?
+
+```{r vectors-2, exercise = TRUE}
+
+```
+
+```{r vectors-2-solution}
+1:10
+```
+
+##
+
+### Extraction de composantes
+
+
+Vous pouvez extraire n'importe quel élément d'un vecteur en plaçant une paire de crochets `[]` dans laquelle vous indiquerez le (les) numéro(s) de l'élément (des éléments) que vous souhaitez extraire. Par exemple, `vec [3]` retournerait le troisième élément du vecteur nommé `vec`.
+
+Utilisez le  bloc de code ci-dessous pour extraire le quatrième élément de `vec`.
+
+```{r vectors-3, exercise = TRUE}
+vec <- c(1, 2, 4, 8, 16)
+```
+
+```{r vectors-3-solution}
+vec <- c(1, 2, 4, 8, 16)
+vec[4]
+```
+
+
+### Extraction de plusieurs éléments
+
+Il suffit de placer la iste des éléments à extraire entre les deux crochets`[]`.
+Par exemple, pour extraire le 1er, le 2nd et le 5ème élement de `vec`, utiliser 
+la liste c(1,2,5) : 
+
+```{r vectors-4, exercise = TRUE}
+vec <- c(1, 2, 4, 8, 16)
+vec[]
+```
+
+```{r vectors-4-solution}
+vec <- c(1, 2, 4, 8, 16)
+vec[c(1,2,5)]
+```
+
+
+##
+
+### Noms de vecteur
+
+Si les éléments de votre vecteur ont des noms, vous pouvez les extraire par leur nom. Pour ce faire, placez un nom ou un vecteur de noms entre crochets derrière un vecteur. Entourez chaque nom de guillemets, par ex. `vec2 [c (" alpha "," beta ")]`.
+
+Extrayez l'élément nommé gamma du vecteur ci-dessous.
+
+```{r vectors-5, exercise = TRUE}
+vec2 <- c(alpha = 1, beta = 2, gamma = 3)
+```
+
+```{r vectors-5-solution}
+vec2 <- c(alpha = 1, beta = 2, gamma = 3)
+vec2["gamma"]
+```
+
+
+##
+
+### Opérations vectorielles
+
+A votre avis, quel sera le résultat de l'addition ci-dessous?
+
+```{r vectors-6, exercise = TRUE}
+c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+
+idem pour la multiplication 
+
+```{r vectors-6a, exercise = TRUE}
+c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) * c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+##
+
+-Dans l'exmple précédent, les opérations `+` et `*` sont exécutées sur deux vecteurs de même taille. Que se passe-t-il si les deux vecteurs sont  de tailles différentes?  
+
+```{r vectors-7, exercise = TRUE}
+1 + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+ou encore
+
+```{r vectors-7a, exercise = TRUE}
+c(30,10) + c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+
+```{r vectors-7b-check, ech=F}
+"Ne pas oublier que `1` est un vecteur de taille un, R va répéter/recycler  le vecteur le plus court autant de fois qu'il le faut."
+```
+
+##
+
+ -Construire le vecteur `x` suivant : 120, 134, 256, 12
+
+
+```{r vectors-200, exercise = TRUE}
+
+```
+
+```{r vectors-200-solution}
+x <- c(120, 134, 256, 12)
+x
+```
+
+##
+
+- Utiliser ce vecteur `x` pour générer les deux vecteurs suivants
+
+```{r echo=F}
+x <- c(120, 134, 256, 12)
+x + 100
+x * 2
+```
+
+
+```{r vectors-20, exercise = TRUE}
+
+```
+
+```{r vectors-20-solution}
+x + 100
+x * 2
+```
+
+
+
+
+
+##
+
+On a relevé les notes en maths, anglais et sport d'une classe de 6 élèves et on a stocké ces données dans trois vecteurs :
+
+```{r}
+maths <- c(12, 16, 8, 18, 6, 10)
+anglais <- c(14, 9, 13, 15, 17, 11)
+sport <- c(18, 11, 14, 10, 8, 12)
+```
+
+##
+
+ - Calculer la moyenne des élèves de la classe en anglais.
+
+
+```{r exoa, exercise = TRUE}
+
+```
+
+```{r exoa-solution}
+mean(anglais)
+```
+
+
+##
+
+ - Calculer la moyenne générale de chaque élève.
+
+
+
+```{r exob, exercise = TRUE}
+
+```
+
+```{r exob-solution}
+(maths + anglais + sport) / 3
+```
+
+##
+
+- Essayez de comprendre le résultat des deux fonctions suivantes (vous pouvez vous aider de la page d'aide de ces fonctions) :
+
+```{r}
+pmin(maths, anglais, sport)
+```
+
+```{r}
+pmax(maths, anglais, sport)
+```
+
+
+
+```{r exoc, exercise = TRUE}
+
+```
+
+```{r exoc-solution}
+" `pmin` et `pmax` renvoient les minimum et maximum 
+"parallèles" des trois vecteurs passés en argument. 
+Ainsi, `pmin` renvoie pour chaque élève la note 
+minimale dans les trois matières, et `pmax`
+la note maximale.
+```
+
+
+## Types
+
+
+### Types Atomiques `atomic`
+
+-Sous R, les objets se différencient par leur `mode` décrivant leur
+contenu, et leur classe `class` décrivant leur structure. Les objets atomiques sont de mode homogène et les objets récursifs (listes) sont de mode hétérogène.
+
+<!-- ```{r types1, echo = FALSE} -->
+<!-- question("Which of these is not an atomic data type", -->
+<!--          answer("numeric/double"), -->
+<!--          answer("integer"), -->
+<!--          answer("character"), -->
+<!--          answer("logical"), -->
+<!--          answer("complex"), -->
+<!--          answer("raw"), -->
+<!--          answer("simple", correct = TRUE), -->
+<!--          allow_retry = TRUE, -->
+<!--          random_answer_order = TRUE) -->
+<!-- ``` -->
+
+<!-- ### What type? -->
+
+<!-- ```{r types2, echo = FALSE} -->
+<!-- question('What type of data is `"1L"`', -->
+<!--          answer("numeric/double"), -->
+<!--          answer("integer", message = "Close. `1L` would be an integer, but look closer."), -->
+<!--          answer("character", correct = TRUE), -->
+<!--          answer("logical"), -->
+<!--          allow_retry = TRUE) -->
+<!-- ``` -->
+
+<!-- ### Entiers -->
+
+<!-- Create a vector of integers from one to five. Can you imagine why you might want to use integers instead of numbers/doubles? -->
+
+<!-- ```{r types3, exercise = TRUE} -->
+
+<!-- ``` -->
+
+<!-- ```{r types3-solution} -->
+<!-- c(1L, 2L, 3L, 4L, 5L) -->
+<!-- ``` -->
+
+<!-- ### Floating point arithmetic -->
+
+<!-- Computers must use a finite amount of memory to store decimal numbers (which can sometimes require infinite precision). As a result, some decimals can only be saved as very precise approximations. From time to time you'll notice side effects of this imprecision, like below. -->
+
+<!-- Compute the square root of two,square the answer (e.g. multiply the square root of two by the square root of two), and then subtract two from the result. What answer do you expect? What answer do you get? -->
+
+<!-- ```{r types4, exercise = TRUE} -->
+
+<!-- ``` -->
+
+<!-- ```{r types4-solution} -->
+<!-- sqrt(2) * sqrt(2) - 2 -->
+<!-- sqrt(2)^2 - 2 -->
+<!-- ``` -->
+
+### Type : Vecteurs
+
+```{r types5, echo = FALSE}
+question('Un vecteur simple peut contenir combien de types de données?',
+         answer("1", correct = TRUE),
+         answer("6"),
+         answer("Autant que l'on veut"),
+         allow_retry = TRUE)
+```
+
+### Caractère ou Objet?
+
+L'une des erreurs les plus courantes dans R est d'appeler un objet lorsque vous voulez appeler une chaîne de caractères et vice versa.
+
+```{r types6, echo = FALSE}
+question("Lesquels des noms suivants sont des objets? Quelle est la différence entre les noms d'objets et les chaînes de caractères?",
+         answer("foo", correct = TRUE),
+         answer('"num"'),
+         answer("mu", correct = TRUE),
+         answer('"sigma"'),
+         answer('"data"'),
+         answer("a", correct = TRUE),
+         allow_retry = TRUE,
+         correct = "Les chaînes de caractères sont entourées de guillemets, mais pas les noms d'objets.")
+```
+
+## Listes 
+
+
+### Listes vs. vecteurs
+
+
+```{r lists1, echo = FALSE}
+question('Quelle(s) structure(s) de données pourriez-vous utiliser pour stocker dans le même objet les données suivantes? `1001`,`TRUE`, `"Histoires"`.',
+         answer("un vecteur"),
+         answer("une liste", correct = TRUE),
+         answer("aucun des deux"),
+         allow_retry = TRUE)
+```
+
+##
+
+### Créer une liste
+
+Construire une liste qui contient les éléments `1001`,` TRUE` et `"Histoires"`. Donnez un nom à chaque élément.
+
+```{r lists2, exercise = TRUE}
+
+```
+
+```{r lists2-solution}
+list(nombre = 1001, logique = TRUE, caractere = "Histoires")
+```
+
+##
+
+### Extraction d'un élément
+
+Extraire le nombre 1001 à partir de la liste suivanate.
+
+```{r lists3, exercise = TRUE}
+divers<-list(nombre = 1001, logique = TRUE, caractere = "Histoires")
+```
+
+```{r lists3-solution}
+divers<-list(nombre = 1001, logique = TRUE, caractere = "Histoires")
+divers$nombre
+```
+
+##
+
+### Tableau de données `Data Frames`
+
+Vous pouvez créer un tableau de données avec la fonction `data.frame()`, qui fonctionne de manière similaire à `c()` et `list()`. Assemblez les vecteurs ci-dessous dans un tableau de données avec les noms de colonne `nombres`,` logiques`, `caracteres`.
+
+```{r lists4, exercise = TRUE}
+nums <- c(1, 2, 3, 4)
+logs <- c(TRUE, TRUE, FALSE, TRUE)
+strs <- c("pommes", "bananes", "navets", "canards")
+```
+
+```{r lists4-solution}
+nums <- c(1, 2, 3, 4)
+logs <- c(TRUE, TRUE, FALSE, TRUE)
+strs <-  c("pommes", "bananes", "navets", "canards")
+data.frame(nombres = nums, logiques = logs, caracteres = strs)
+```
+
+```{r lists4-check}
+"Excellent, Lorsque vous créez un tableau de données, vous devez suivre une règle: chaque vecteur colonne doit avoir la même longueur."
+```
+
+##
+
+### Extraction d'une colonne
+
+Étant donné qu'un data frame  est un type de liste (avec des éléments nommés), comment pourriez-vous extraire la colonne des caractères du tableau de données `df` ci-dessous? 
+
+```{r lists5, exercise = TRUE}
+nums <- c(1, 2, 3, 4)
+logs <- c(TRUE, TRUE, FALSE, TRUE)
+strs <- c("pommes", "bananes", "navets", "canards")
+df <- data.frame(nombres = nums, logiques= logs, caracteres = strs)
+```
+
+```{r lists5-solution}
+df$caracteres
+```

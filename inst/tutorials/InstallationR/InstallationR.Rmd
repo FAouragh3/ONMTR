@@ -1,0 +1,236 @@
+ 
+---
+title: "Exercices : R et RStudio"
+tutorial:
+  id: "cours-1"
+  version: 0.0
+output: 
+  learnr::tutorial:
+    language:
+      fr:
+        button:
+          nexttopic: Suivant
+          previoustopic: Précédent
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(learnr)
+# library(tidyverse)
+checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
+  list(message = check_code, correct = TRUE, location = "append")
+}
+tutorial_options(exercise.timelimit = 60, exercise.checker = checker)
+```
+
+
+
+
+# Exercices : Introduction
+
+## Plan
+
+Cette série d'exercices est une adaptation libre de
+contenus tirés du site suivant:
+
+- "https://github.com/dlab-berkeley/R-Fundamentals"
+
+Ce  tutoriel vous aidera à effectuer les tâches suivantes:
+
+* Installer R sur votre ordinateur
+* Installer  RStudio IDE
+* Installer un package   
+
+## Installation de R
+
+![](https://www.youtube.com/watch?v=uEZPWRmbQPI&list=PLd5KCIp7jmqeEunrycs-LwT2PGGTA-v9-&index=2)
+
+## Testez vos connaissances 
+
+```{r quiz1, echo=FALSE}
+quiz(caption = "Installation de R",
+  question("Où peut-on télécharger R?",
+    answer("www.rstudio.com/download"),
+    answer("[cloud.r-project.org](http://cloud.r-project.org)", correct = TRUE, message = "Vous pouvez aussi télécharger R à partir de  [cran.r-project.org](http://cran.r-project.org)"),
+    answer("www.r-project.org", message = "Bon essai, mais pas exactemment,  www.r-project.org ne fournit pas de lien direct pour télécharger R, il pointe plutôt vers un des sites ci-dessus."),
+    answer("www.r.com"),
+      correct = "Bonne réponse",
+      try_again = "Mauvaise réponse",
+      submit_button = "Soumettre votre réponse",
+      try_again_button = "Réessayez",
+    allow_retry = TRUE
+  )
+)
+```
+
+##
+
+```{r quiz2, echo=FALSE}
+quiz(caption =  "Installation de R",
+  question("A quelle fréquence faut-il mettre à jour R?",
+    answer("A chaque utilisation", message = "Ce ne serait pas nécessaire, à moins que vous utilisez R très rarement !"),
+    answer("A peu près une fois par année", correct = TRUE, "R publie une nouvelle version chaque année, mais il vaut mieux faire la mise à jour en cas de problème (bug) non expliqué "),
+    answer("Jamais", message = "Une nouvelle version de R est publiée environ une fois par an. Il est fortement conseillé de travailler avec la dernière version de R." ),
+      correct = "Bonne réponse",
+      try_again = "Mauvaise réponse",
+      submit_button = "Soumettre votre réponse",
+      try_again_button = "Réessayez",
+    allow_retry = TRUE
+  )
+)
+```
+
+## Installer RStudio
+
+- RStudio est un environnement de développement intégré (IDE=Integrated Development Environment)  pour R. 
+
+- Il facilite la programmation en R.
+
+![](https://www.youtube.com/watch?v=oC86ft9lhTM&list=PLd5KCIp7jmqeEunrycs-LwT2PGGTA-v9-&index=9)
+
+
+## Testez vos connaissances
+
+```{r quiz3, echo=FALSE}
+quiz (caption = "Installation de RStudio",
+      question ("C'est quoi l'EDI RStudio?",
+                answer ("Une application qui facilite l'utilisation de R.", correct = TRUE, message = "RStudio organise votre espace de travail et facilite l'écriture, l'utilisation, le débogage et la sauvegarde du code R."),
+                answer ("Une application qui vous permet d'utiliser R sans écrire de code", message = "Le code fournit un enregistrement reproductible de votre travail, ce qui est essentiel pour les analyses staistiques."),
+                answer ("Un tableur comme Microsoft Excel."),
+                answer ("Un autre nom pour R", message = "R et RStudio sont deux choses distinctes. R est une langue, comme l'anglais. Considérez RStudio comme un programme qui vous aide à utiliser la langue, un peu comme la façon dont un programme de traitement de texte vous aide à écrire en anglais/français. "),
+                      correct = "Bonne réponse",
+      try_again = "Mauvaise réponse",
+      submit_button = "Soumettre votre réponse",
+      try_again_button = "Réessayez",
+                allow_retry = TRUE
+      )
+)
+```
+
+
+##
+
+```{r quiz4, echo=FALSE}
+quiz (caption = "Installation de RStudio",
+      question ("L'EDI RStudio est-il gratuit à télécharger et à utiliser?",
+                answer ("Oui!", correct = TRUE, message = "Comme R, RStudio est gratuit et open-source. Il existe des versions professionnelles de RStudio avec des fonctionnalités améliorées.") ,
+                answer ("Non.", message = "Comme R, RStudio est gratuit et open-source. Il existe des versions professionnelles de RStudio avec des fonctionnalités améliorées.")
+      )
+)
+```
+
+##
+
+```{r quiz5, echo=FALSE}
+quiz (caption = "Installation de RStudio",
+      question ("Avez-vous besoin d'installer R si vous avez déjà RStudio?",
+                answer ("Oui.", correct = TRUE),
+                answer ("Non.", message = "R n'est pas fourni avec RStudio; vous devez installer R séparément.")
+      )
+)
+```
+
+
+
+## Installer des Packages
+
+![](https://www.youtube.com/watch?v=joKOVNSIXCE&list=PLd5KCIp7jmqeEunrycs-LwT2PGGTA-v9-&index=8)
+
+## Testez vos connaissances 
+
+```{r  a1,echo = FALSE}
+quiz (caption = "Quiz - Travailler avec un package",
+  question ("Quelle commande utilisez-vous pour installer des packages?",
+    answer ("` library () `",
+      message = "Nous verrons ce que` library () `fera plus tard."),
+    answer ("` install.packages () `", correct = TRUE),
+    answer ("` install_packages () `"),
+    answer ("Il n'y a pas de commande. Vous devez visiter [cran.r-project.org] (http://cran.r-project.org) et télécharger les packages manuellement.", message = "R facilite le téléchargement des packages. Vous vous connectez à Internet, puis exécutez l'une des commandes ci-dessus. "),
+          correct = "Bonne réponse",
+      try_again = "Mauvaise réponse",
+      submit_button = "Soumettre votre réponse",
+      try_again_button = "Réessayez",
+    allow_retry = TRUE
+  )
+)
+  
+```
+
+## Packages
+
+```{r a2,  echo = FALSE}
+quiz (caption = "Quiz - Travailler avec un package",
+  question ("À quelle fréquence devez-vous installer un package sur votre ordinateur?",
+    answer ("Chaque fois que vous redémarrez R"),
+    answer ("Chaque fois que vous redémarrez votre ordinateur"),
+    answer ("Une seule fois. Par la suite, R peut le trouver sur votre disque dur si nécessaire.", correct = TRUE),
+    answer ("Jamais, tant que vous êtes connecté à Internet.", message = "Cela peut être vrai si vous utilisez R sur un service cloud. Cependant, si vous utilisez R localement sur votre propre ordinateur, vous aurez besoin d'installer chaque package que vous utilisez sur votre ordinateur. "),
+          correct = "Bonne réponse",
+      try_again = "Mauvaise réponse",
+      submit_button = "Soumettre votre réponse",
+      try_again_button = "Réessayez",
+    allow_retry = TRUE
+  )
+)
+  
+```
+
+## 
+
+```{r a3,  echo = FALSE}
+quiz (caption = "Quiz - Travailler avec un package",
+  question ("C'est quoi tidyverse?",
+    answer ("Une collection de packages qui fonctionnent bien ensemble et fournissent des outils pour les tâches courantes de science des données.", correct = TRUE, message = 'Vous pouvez installer tous les packages tidyverse à la fois avec `install.packages (" tidyverse ")` . '),
+    answer ("Un programme de traitement de texte pour R"),
+    answer ("Un style de code qui se lit comme de la poésie"),
+    answer ("Un univers alternatif où tout le monde est programmeur R."),
+          correct = "Bonne réponse",
+      try_again = "Mauvaise réponse",
+      submit_button = "Soumettre votre réponse",
+      try_again_button = "Réessayez",
+    allow_retry = TRUE
+  )
+)
+```
+
+
+
+## 
+
+### Une erreur courante
+
+
+```{r packages1, echo = FALSE}
+question("que signifie le message d'erreur suivant?`object _____ does not exist.`",
+         answer("Vous avez mal orthographié le nom de l'objet en question"),
+         answer("Vous avez oublié de charger le package qui contient cet objet"),
+         answer("Les deux réponses sont bonnes", correct = TRUE),
+         allow_retry = TRUE)
+```
+
+##
+
+### Charger un package
+
+
+Dans le bloc de code ci-dessous, chargez le package `tidyverse`. Chaque fois que vous chargez un package, R charge également tous les packages dont dépend le package en question. Par exemple, chaque fois que vous chargez `tidyverse`,ce dernier charge également `ggplot2`,` dplyr`, `tibble`,` tidyr`, `readr` et` purrr`.
+
+
+```{r packages2, exercise = TRUE}
+
+```
+
+```{r packages2-solution}
+library(tidyverse)
+```
+
+```{r packages2-check}
+"R gardera les packages chargés jusqu'à ce que vous fermiez votre session R. Lorsque vous rouvrirez R, vous devrez recharger vos packages
+"
+```
+
+
+
+
+
